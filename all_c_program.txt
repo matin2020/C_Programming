@@ -1,0 +1,187 @@
+
+
+**********************************************************************************
+
+//Command to open File Explorer
+//
+
+#include<conio.h>
+#include<stdlib.h>
+
+int main() {
+	system("start \"\"\"c:\\program files\"");
+
+	
+	_getch();
+	_getch();
+
+	return(0);
+}
+**************************************************************
+//This program will write and read every thing in a file
+//https://www.guru99.com/c-file-input-output.html
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+
+
+int main() {
+	FILE *fp;
+	char c;
+
+	fp = fopen("files/dem.txt", "w");
+	while ((c = getchar()) != EOF) { //ctrl z for quit
+		putc(c, fp);
+	}
+	fclose(fp);
+	fp = fopen("files/demo.txt", "r");
+	while ((c = getc(fp)) != EOF) {
+		printf("%c", c);
+	}
+	fclose(fp);
+	_getch();
+	_getch();
+
+	return(0);
+}
+
+***********************************************************************************************
+//This program will read every thing in a file
+//https://www.programmingsimplified.com/c-program-read-file
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+int main() {
+	FILE *fp;
+	char ch;
+	
+	
+	fp = fopen("file.txt", "r");
+	if (fp == NULL) {
+		perror("error opening file");
+		return(-1);
+	}
+	while ((ch = fgetc(fp)) != EOF)
+		printf("%c", ch);
+	
+	fclose(fp);
+	
+	_getch();
+	_getch();
+	
+	return(0);
+}
+*************************************************************************************
+//This program will read 10 cherecter of the file line of the text file
+////www.thecrazyprogrammer.com/2013/05/c-program-to-read-data-from-keyboard.html
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+int main() {
+	FILE *fp;
+	char str[10];
+	
+	
+	fp = fopen("file.txt", "r");
+	if (fp == NULL) {
+		perror("error opening file");
+		return(-1);
+	}
+	if (fgets(str, 10, fp) != NULL) {
+		puts(str);
+	}
+	fclose(fp);
+	
+	_getch();
+	_getch();
+	
+	return(0);
+}
+
+*******************************************************************************************
+//C program to write student record to a binary file
+////www.thecrazyprogrammer.com/2013/05/c-program-to-read-data-from-keyboard.html
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+struct student
+{
+	int rollno;
+	char name[60];// inthe original it was *name
+	int m1, m2, m3;
+}s1;
+
+int main() {
+	FILE *fp;
+	//clrscr();
+	fp = fopen("mona.dat", "wb"); //open a binary file in the writing mode
+	//fopen is unsafe use fopen_s
+	//Solution=properties->configuration add _CRT____
+	if (fp == NULL)
+	{
+		printf("File could not open'");
+		exit(0);
+	}
+	printf("Enter student details\n");
+	printf("Roll No:");
+	scanf("%d", &s1.rollno);
+	printf("Name:");
+	scanf("%s",s1.name);
+	printf("Marks in three subjects:");
+	scanf("%d%d%d", &s1.m1, &s1.m2, &s1.m3);
+	fwrite(&s1, sizeof(s1), 1, fp); //writing to binary file
+	printf("\n Record has been added successfully..!!");
+	fclose(fp);
+	_getch();
+}
+
+*******************************************************************************************
+//C program to read data from keyboard and write it to a text file
+//This program will create file and will write in the filein the given location  
+//Link:https://www.thecrazyprogrammer.com/2013/05/c-program-to-read-data-from-keyboard.html
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+//#include<string.h>
+//#include<iostream>
+using namespace std;
+
+
+int main() {
+
+	FILE *fp;
+
+	char ch, file[10];
+	//char directory[10] = "newFile";
+	//nF= 'newFiles';
+	//clrscr();
+	//printf("Enter file name:");
+	///scanf("%s", file);
+	//char *path = directory +'/'+ "file";
+	fp = fopen("newFiles/mona.txt", "w");
+	if (fp == NULL)
+	{
+		printf("File could not open!!");
+		exit(0);
+	}
+	printf("Enter data(* to exit) \n");
+	while (1)
+	{
+		ch = _getche();
+		if (ch == '*')
+			exit(0);
+		
+		
+		putc(ch, fp);
+	}
+	fclose(fp);
+
+	getchar();
+	getchar();
+	return 0;
+
+}
